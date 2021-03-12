@@ -167,16 +167,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             {
                 DOCINFO di= { sizeof (DOCINFO), TEXT ("Printing Picture...")};
 
-                HDC prn;
-
-                
-
-                prn = GetPrinterDC(hwnd);
-                cxpage = GetDeviceCaps (prn, HORZRES);
-                cypage = GetDeviceCaps (prn, VERTRES);
+                HDC prn = GetPrinterDC(hwnd);
                 hdcMem = CreateCompatibleDC(prn);
                 HBITMAP hbmOld = (HBITMAP)SelectObject(hdcMem, hBitmap);
 
+                cxpage = GetDeviceCaps (prn, HORZRES);
+                cypage = GetDeviceCaps (prn, VERTRES);
                 StartDoc (prn, &di);
                 StartPage (prn) ;
                 SetMapMode (prn, MM_ISOTROPIC);
